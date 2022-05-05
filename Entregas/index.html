@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./simuladorInteractivo.css">
+  <title>Randomizador de pelis</title>
+</head>
+<body>
+  <div class="main">
+
+    <div style="display:flex; flex-direction: column; margin-left: 20px; width:fit-content;">
+      <h3>Agregar peli</h3>
+      <input id="nombrePeli" style="display: inline-block; width: 300px; margin-bottom: 10px;" type="text" placeholder="Insertar Pelicula">
+      <select id="categoria" style="display: inline-block; width: 300px; margin-bottom: 10px;" name="categoria">
+        <option selected>Selecciona un tipo de pelicula</option>
+        <option value="accion">Accion</option>
+        <option value="romance">Romance</option>
+        <option value="comedia">Comedia</option>
+      </select>
+      <input style="display: inline-block; width: fit-content;" type="button" value="Agregar" id="enviado" onclick="obtenerContenido()">
+      <button onclick="AgregarPelisPorDefecto()" style = "margin-top: 10px;">Agregar pelis por defecto (Mas rapido)</button>
+    </div>
+    
+    <div class="plantilla-pelicula" id="plantilla">
+      <p id="nombrePlantilla"><b>Nombre de peli</b></p>
+      <p id="clasificacionPlantilla">Calificacion en una pagina de reseñas de pelis</p>
+      <p id="opinionPlantilla">Comentario personal despues de haberla visto</p>             <!-- Mas adelante, input de opinion luego de marcarla como vista -->
+      
+      
+      <input type="checkbox" name="check" id="vista">
+      <label for="check">Vista o no vista</label>
+    </div>
+    
+    <div id="plantillas">
+      
+    </div>
+  </div>
+  <div class="random">
+    <h3><b>Pelicula al azar: </b></h3>
+    <button onclick="RandomizadorInador()">Randomizador!</button>
+    <p><b id="nombreAzar">Nombre de peli</b></p>
+      <p id="clasificacionAzar">Calificacion en una pagina de reseñas de pelis</p>
+      <!-- <p id="opinionPlantilla">Comentario personal despues de haberla visto</p>  -->            <!-- Mas adelante, input de opinion luego de marcarla como vista -->
+  </div>
+
+  <div class="buscar">
+    <h3 class="ml">Buscador de pelis: </h3>
+    <input class="ml" name="buscaPelis" type="text" id="busca" placeholder="Buscador">
+    <button class="ml" name="buscaPelis" type="submit" onclick="buscarPelicula()">Buscar</button>
+    <div id="buscador">
+
+    </div>
+  </div>
+
+</body>
+<script src="./simuladorInteractivo.js"></script>
+</html>

@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.plantilla-pelicula {
+    border-radius: 15px;
+    padding: 5px 20px 20px 20px;
+    margin: 20px 20px ;
+    width: 300px;
+    height: fit-content;
+    background-color: blue;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.main {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.random {
+    border-radius: 15px;
+    padding: 5px 20px 20px 20px;
+    margin: 20px 20px ;
+    width: 300px;
+    height: fit-content;
+    background-color: rgb(168, 238, 122);
+}
+
+.buscar {
+    margin-left: 50px;
+}
+
+.ml {
+    margin-left: 20px;
+}
