@@ -43,13 +43,29 @@ const RandomizadorInador = () => {
 
 const AgregarPelisPorDefecto = () => {
     agregarPelicula(listaPelis, "The wolf of wall street", "Accion") 
+    addElemento(listaPelis)         //Agrego plantilla
+
     agregarPelicula(listaPelis, "Piratas del Caribe", "accion")
+    addElemento(listaPelis)    
+
     agregarPelicula(listaPelis, "Matrix", "accion")
+    addElemento(listaPelis)    
+
     agregarPelicula(listaPelis, "Batman", "accion")
+    addElemento(listaPelis)    
+
     agregarPelicula(listaPelis, "Cumbres Borroscosas", "romance")
+    addElemento(listaPelis)    
+
     agregarPelicula(listaPelis, "Jack & Jill", "comedia")
+    addElemento(listaPelis)    
+
     agregarPelicula(listaPelis, "Arcane", "accion")
+    addElemento(listaPelis)    
+
     agregarPelicula(listaPelis, "The Vault", "accion")
+    addElemento(listaPelis)    
+
     //listaPelis.map( (el) => el.categoria.charAt[0].toUpperCase())               //No anda(?)
 }
 
@@ -91,26 +107,28 @@ function imprimirPelis(array){
 /* cuando haga click, que agregue una peli a la lista general y a la lista del genero correspondiente */
 /* Quiero que cada elemento del arreglo sea un objeto */
 function agregarPelicula(arreglo, nombre, categoria){
-
-        let peli = new pelicula(nombre, categoria)                              //como es let, la variable peli existe solo dentro de la function?
-        switch (peli.categoria.toUpperCase()) {
-            case "ACCION":
+    let peli = new pelicula(nombre, categoria)                              //como es let, la variable peli existe solo dentro de la function?
+    switch (peli.categoria.toUpperCase()) {
+        case "ACCION":
             listaPelisAccion.push(peli)
             break;
-            case "COMEDIA":
-                listaPelisComedia.push(peli)
+        case "COMEDIA":
+            listaPelisComedia.push(peli)
             break;
         case "ROMANCE":
             listaPelisRomance.push(peli)
             break;
-            default:
-                console.log("Error: La categoria no coincide con accion, ni comedia ni romance.")
-                console.log("No se podrá agregar a la lista de su genero correspondiente.")
-                break;
-            }
-            return arreglo.unshift(peli)
-    
+        default:
+            console.log("Error: La categoria no coincide con accion, ni comedia ni romance.")
+            console.log("No se podrá agregar a la lista de su genero correspondiente.")
+            break;
+        }
+    arreglo.unshift(peli)
+    localStorage.setItem("listaPelis", JSON.stringify(arreglo))
+    console.log(JSON.parse(localStorage.getItem("listaPelis")))
 }
+
+
 
 
 /* Buscador de pelis. */                //Ingreso texto. Busca objeto por objeto y compara el string ingresado con los nombres de cada uno.
@@ -140,15 +158,27 @@ function buscarPelicula(){
         }
     }
 }
-/* const palabra = "wall"
-if( buscarPelicula(listaPelis, palabra)){
-    console.log("FUNCIONA!!")
+
+/* Agrego event listener a buscador */
+//let enter = document.addEventListener()
+
+
+/* Cuando inicie, setea el listaPelis según el que está en el localStorage */
+let listaParseada = JSON.parse(localStorage.getItem("listaPelis"))
+if(listaParseada === "null"){
+    console.log("No hay items")
 } else {
-    console.log("aun no bro")
-} */
+    for(elemento in listaParseada){
+        listaPelis.unshift(listaParseada[elemento])
+        addElemento(listaPelis)
+    }
+}
 
-
-/* Agregar lista a localStorage */
 
 /* Agregar hora de subida a cada plantilla */
 
+/* Agregar boton de borrar a cada plantilla */
+
+/* Agregar arreglos a localStorage */
+
+/* Agregar boton de resetear y boton de "estas seguro de que eres resetear?" */
