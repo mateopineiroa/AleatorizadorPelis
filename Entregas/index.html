@@ -24,6 +24,7 @@
       </select>
       <input style="display: inline-block; width: fit-content;" type="button" value="Agregar" id="enviado" onclick="obtenerContenido()">
       <button onclick="AgregarPelisPorDefecto()" style = "margin-top: 10px;">Agregar pelis por defecto (Mas rapido)</button>
+      <button onclick="formatearLista()">Resetear lista</button>
     </div>
     
     <div class="plantilla-pelicula" id="plantilla">
@@ -60,5 +61,8 @@
   </div>
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>                       <!-- Libreria para crear gráficos -->
+<script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
 <script src="./simuladorInteractivo.js"></script>
 </html>

@@ -143,13 +143,14 @@ function buscarPelicula(){
     if(nombre.length != 0){
         let i = 0
         for(let i = 0; i<listaPelis.length; i++){
-            if(listaPelis[i].nombre.toUpperCase().includes(nombre)) {
+            if(nombre.toUpperCase().includes(nombre)) {
                 let buscador = document.getElementById("buscador")
                 let peliEncontrada = document.createElement("div")
                 let name = document.createElement("h3")
                 let clas = document.createElement("h4")
-                name.innerHTML = listaPelis[i].nombre
-                clas.innerHTML = listaPelis[i].categoria
+                let { nombre, categoria } = listaPelis[i]                       //Deconstruccion
+                name.innerHTML = nombre
+                clas.innerHTML = categoria
                 peliEncontrada.appendChild(name)
                 peliEncontrada.appendChild(clas)
                 peliEncontrada.className += "plantilla-pelicula"
@@ -174,6 +175,45 @@ if(listaParseada === "null"){
     }
 }
 
+function formatearLista(){
+    localStorage.clear()
+    var primero = document.getElementById("plantillas").firstElementChild
+    while (primero) {
+        primero.remove()
+        primero = document.getElementById("plantillas").firstElementChild         //Cuando no tiene child, devuelve false
+        console.log(primero)
+    }
+}
+
+
+function eliminarElemento(){
+    Swal.fire({
+        title: "Estas a punto de eliminar la peli de la lista",
+        text: "¿Estas seguro?",
+        icon: "warning",
+        confirmButtonText: "Eliminar" 
+    })
+}
+
+function eliminadoExitosamente(){               /* Que esto se muestre dos segundos y se vaya */
+    Swal.fire({
+        position: 'bottom-end',
+        title: "La pelicula ha sido eliminada con exito!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1000 
+    })
+}
+
+
+
+/* Agregar icono de eliminar que cuando hago click ejecuta la funcion que lo quita de el arreglo y ademas borra el elemento del html */
+
+/* Agregar libreria de alertar para cuando el usuario elimine una peli, te pregunte si estas seguro */
+
+/* Agregar libreria chart.js para crear graficas segun la popularidad de la pelicula obteniendo la informacion con una api */
+
+/* Agregar libreria Luxon para agregarle fecha de subida a cada pelicula. Agregar datos al objeto pelicula */
 
 /* Agregar hora de subida a cada plantilla */
 
@@ -182,3 +222,5 @@ if(listaParseada === "null"){
 /* Agregar arreglos a localStorage */
 
 /* Agregar boton de resetear y boton de "estas seguro de que eres resetear?" */
+
+/* Crear un const path para la carpeta de imagenes, en una celda de las pelis pongo el nombre de cada archivo imagen correspondiente */
