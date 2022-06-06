@@ -135,7 +135,7 @@ const AgregarPelisPorDefecto = () => {
     addElemento(listaPelis)    
 
 
-    agregarPelicula(listaPelis, "Jack & Jill", "comedia")
+    agregarPelicula(listaPelis, "Jack and Jill", "comedia")
     addElemento(listaPelis)    
 
     agregarPelicula(listaPelis, "Arcane", "accion")
