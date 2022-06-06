@@ -326,9 +326,9 @@ function eliminadoExitosamente(){               /* Que esto se muestre dos segun
 
 
 /* API que me da descripciones de pelis!! https://www.omdbapi.com/*/
-fetch(`http://www.omdbapi.com/?t=pirates+of+the+caribbean&apikey=${key}`)
-    .then( (response) => response.json() )
-    .then( (data) => console.log("Titulo de la pelicula(?):",data.Title))
+//fetch(`http://www.omdbapi.com/?t=pirates+of+the+caribbean&apikey=${key}`)
+//    .then( (response) => response.json() )
+//    .then( (data) => console.log("Titulo de la pelicula(?):",data.Title))
 
 
 /* Solucion facil: Cada vez que agrego una peli, agrego un modal nuevo */
