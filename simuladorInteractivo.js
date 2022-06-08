@@ -7,7 +7,7 @@ const listaPelisRomance = []
 
 /* Key para el fetch */
 const key = "7aac869a"
-//var contador = 0
+var modalShow = document.getElementById("exampleModal")
 
 /* Creo un objeto de las caracteristicas de una pelicula */                     //Mas adelante puedo hacer que busque la sinopsis, estrellas, actores y demás
 class pelicula {
@@ -22,29 +22,48 @@ class pelicula {
  const agregoDatosModal = (iEsimo) => {              //Le asigno el evento de la funcion con el parametro correspondiente
     let nombre = iEsimo.nombre
     console.log(iEsimo)
+    let titulo = document.getElementById("tituloPeli")
+    let actores = document.getElementById("actoresPeli")
+    let director = document.getElementById("directorPeli")
+    let anio = document.getElementById("anioPeli")
+    let duracion = document.getElementById("duracionPeli")
+    let calificacion = document.getElementById("calificacionPeli")
+    let descripcion = document.getElementById("descripcionPeli")
+    let img = document.getElementById("imgPeli")
     
     fetch(`http://www.omdbapi.com/?t=${nombre.split(" ").join("+")}&apikey=${key}`)
         .then( (response) => response.json() )
         .then( (data) => {
             console.log(data)
-            let titulo = document.getElementById("tituloPeli")
-            let actores = document.getElementById("actoresPeli")
-            let anio = document.getElementById("anioPeli")
-            let duracion = document.getElementById("duracionPeli")
-            let calificacion = document.getElementById("calificacionPeli")
-            let descripcion = document.getElementById("descripcionPeli")
-            let img = document.getElementById("imgPeli")
+            //modalShow.removeAttribute("mostrar")
             img.setAttribute("src", data.Poster)
-            titulo.innerHTML = data.Title
-            actores.innerHTML = data.Actors
-            anio.innerHTML = data.Year
-            duracion.innerHTML = data.Duration
-            calificacion.innerHTML = data.Ratings[0].Value
-            descripcion.innerHTML = data.Plot
+            titulo.innerHTML = `Título: ${data.Title}`
+            actores.innerHTML = `Actores: ${data.Actors}`
+            director.innerHTML = `Director: ${data.Director}`
+            anio.innerHTML = `Año: ${data.Year}`
+            duracion.innerHTML = `Dutacion de la pelicula: ${data.Runtime}`
+            calificacion.innerHTML = `Calificación: ${data.Ratings[0].Value}`
+            descripcion.innerHTML = `Descripción: ${data.Plot}`
             
             console.log(titulo)
         }) 
+        .catch(() => {
+            img.setAttribute("src", "./noLoEncuentro.jpg")
+            titulo.innerText = "Lo siento, pero no encuentro la peli :/"
+            actores.innerText = ""
+            director.innerText = ""
+            anio.innerText = ""
+            duracion.innerText = ""
+            calificacion.innerText = ""
+            descripcion.innerText = ""
+            
+            
+            console.log("Sorry, la peli no esta")
+        })
+        /* .catch(() => {Ejecuto la alerta de la libreria de alertas integrada}) */
 }
+//modalShow.ariaHidden = 'true'
+//$("exampleModal").modal()
 /*
    
 let nombrePrueba = "pirates of the caribbean" */
@@ -156,18 +175,21 @@ const obtenerContenido = () => {
     imprimirPelis(listaPelis)
     addElemento(listaPelis)
 }
-var contador = 0
 
 
 function createPlantilla(item, index) {
     let caja = document.createElement("div")
     let nombre = document.createElement("h3")
     let clasificacion = document.createElement("h3")
+    let eliminar = document.createElement("button")
     nombre.innerHTML = item.nombre
     clasificacion.innerHTML = item.categoria
     caja.className += "plantilla-pelicula"
+    eliminar.innerText = "Eliminar peli"
+    eliminar.setAttribute("class", `eliminar`)
     caja.appendChild(nombre)
     caja.appendChild(clasificacion)
+    caja.appendChild(eliminar)
     caja.setAttribute("data-bs-toggle", "modal")
     caja.setAttribute("data-bs-target", "#exampleModal")
     caja.classList.add(`eventListenerClass${index}`)
@@ -203,6 +225,11 @@ function addElemento(listaPelis){
         main.appendChild(plantillaElement)
         plantillaElement.addEventListener("click", () => {
             agregoDatosModal(item)                              //No le mando la referencia, le mando el elemento en si
+        })
+        let elimino = document.getElementsByClassName("eliminar")
+        elimino[index].addEventListener("click", () => {
+            eliminarElemento(index)
+            console.log("Event listener agregado")
         })
     })
 
@@ -296,6 +323,7 @@ function formatearLista(){
     localStorage.clear()
     var primero = document.getElementById("plantillas").firstElementChild
     while (primero) {
+        listaPelis.shift()
         primero.remove()
         primero = document.getElementById("plantillas").firstElementChild         //Cuando no tiene child, devuelve false
         //console.log(primero)
@@ -303,12 +331,28 @@ function formatearLista(){
 }
 
 
-function eliminarElemento(){
+function eliminarElemento(index){
+    console.log("Quiero eliminar el:",index)
+    listaPelis.shift()
+    let main = document.getElementById("plantillas")
+    main.innerHTML = ""
+
+    listaPelis.forEach((item, index) => {
+        const plantillaElement = createPlantilla(item, index)
+        main.appendChild(plantillaElement)
+        plantillaElement.addEventListener("click", () => {
+            agregoDatosModal(item)                              //No le mando la referencia, le mando el elemento en si
+        })
+        let elimino = document.getElementsByClassName("eliminar")
+        elimino[index].addEventListener("click", () => {
+            eliminarElemento(index)
+            console.log("Event listener agregado")
+        })
+    })
     Swal.fire({
-        title: "Estas a punto de eliminar la peli de la lista",
-        text: "¿Estas seguro?",
+        title: "Has eliminado una peli de tu lista",
         icon: "warning",
-        confirmButtonText: "Eliminar" 
+        confirmButtonText: "Okay" 
     })
 }
 
