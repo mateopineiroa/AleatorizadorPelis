@@ -21,7 +21,6 @@ class pelicula {
 
  const agregoDatosModal = (iEsimo) => {              //Le asigno el evento de la funcion con el parametro correspondiente
     let nombre = iEsimo.nombre
-    console.log(iEsimo)
     let titulo = document.getElementById("tituloPeli")
     let actores = document.getElementById("actoresPeli")
     let director = document.getElementById("directorPeli")
@@ -30,6 +29,7 @@ class pelicula {
     let calificacion = document.getElementById("calificacionPeli")
     let descripcion = document.getElementById("descripcionPeli")
     let img = document.getElementById("imgPeli")
+    console.log(iEsimo)
     
     fetch(`http://www.omdbapi.com/?t=${nombre.split(" ").join("+")}&apikey=${key}`)
         .then( (response) => response.json() )
@@ -349,11 +349,25 @@ function eliminarElemento(index){
             console.log("Event listener agregado")
         })
     })
-    Swal.fire({
-        title: "Has eliminado una peli de tu lista",
-        icon: "warning",
-        confirmButtonText: "Okay" 
-    })
+    setTimeout(() => {
+        
+        let titulo = document.getElementById("tituloPeli")
+        let actores = document.getElementById("actoresPeli")
+        let director = document.getElementById("directorPeli")
+        let anio = document.getElementById("anioPeli")
+        let duracion = document.getElementById("duracionPeli")
+        let calificacion = document.getElementById("calificacionPeli")
+        let descripcion = document.getElementById("descripcionPeli")
+        let img = document.getElementById("imgPeli")
+        img.setAttribute("src", "./adiosVaquero.jpg")
+        titulo.innerText = "Lamentamos que no te haya gustado la peli :/"
+        actores.innerText = ""
+        director.innerText = ""
+        anio.innerText = ""
+        duracion.innerText = ""
+        calificacion.innerText = ""
+        descripcion.innerText = ""
+    }, 100);
 }
 
 function eliminadoExitosamente(){               /* Que esto se muestre dos segundos y se vaya */
